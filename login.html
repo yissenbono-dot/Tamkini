@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tamkini - Sign In</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="background-shape shape-one"></div>
+    <div class="background-shape shape-two"></div>
+
+    <main class="login-card">
+
+        <div class="profile-logo">
+            <img src="WhatsApp Image 2026-09-28 at 10.26.24 PM.jpeg" alt="Tamkini Profile">
+        </div>
+
+        <h1>Tamkini</h1>
+
+        <p class="tagline">Sign In</p>
+
+        <form onsubmit="login(event)">
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Username"
+                autocomplete="off"
+                required
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                required
+            >
+
+            <p id="error-message"></p>
+
+            <button type="submit">
+                Sign In
+            </button>
+
+        </form>
+
+    </main>
+
+    <script>
+        function login(event) {
+
+            event.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const errorMessage = document.getElementById("error-message");
+
+            if (username === "admin" && password === "1234") {
+
+                errorMessage.textContent = "";
+
+                window.location.href = "dashboard.html";
+
+            } else {
+
+                errorMessage.textContent =
+                    "Invalid username or password.";
+
+            }
+        }
+    </script>
+
+</body>
+</html>

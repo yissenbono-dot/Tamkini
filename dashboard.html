@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tamkini</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-image: url("WhatsApp Image 2026-09-28 at 10.07.53 PM.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 430px;
+            min-height: 100vh;
+            margin: auto;
+            position: relative;
+        }
+
+        .page {
+            min-height: 100vh;
+            padding: 22px 18px 100px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        button {
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =========================
+           DASHBOARD HEADER
+        ========================= */
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .welcome {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #222;
+        }
+
+        .notification {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,.06);
+        }
+
+        .notification-dot {
+            position: absolute;
+            right: 9px;
+            top: 9px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ff6382;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            height: 195px;
+            border-radius: 25px;
+            background: linear-gradient(135deg,#7569dc,#4d409d);
+            padding: 25px 20px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 28px;
+        }
+
+        .hero-text {
+            color: white;
+            width: 60%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text h2 {
+            font-size: 29px;
+            line-height: 1.05;
+            margin-bottom: 12px;
+        }
+
+        .hero-text p {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 43%;
+            height: 190px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            width: 170px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+
+        /* =========================
+           TITLES
+        ========================= */
+
+        .section {
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+
+        /* =========================
+           CATEGORIES
+        ========================= */
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 10px;
+        }
+
+        .category {
+            border: none;
+            background: white;
+            border-radius: 18px;
+            padding: 16px 8px;
+            cursor: pointer;
+            box-shadow: 0 5px 18px rgba(0,0,0,.05);
+            transition: .2s;
+        }
+
+        .category:hover {
+            transform: translateY(-3px);
+        }
+
+        .category:active {
+            transform: scale(.96);
+        }
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 15px;
+            background: #eeecff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto auto 8px;
+            font-size: 22px;
+        }
+
+        .category p {
+            font-size: 12px;
+            font-weight: bold;
+            color: #444;
+        }
+
+
+        /* =========================
+           COURSE CARD
+        ========================= */
+
+        .course-card {
+            width: 100%;
+            border: none;
+            background: white;
+            border-radius: 20px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+            cursor: pointer;
+            box-shadow: 0 5px 18px rgba(0,0,0,.05);
+            transition: .2s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .course-icon {
+            width: 53px;
+            height: 53px;
+            min-width: 53px;
+            border-radius: 15px;
+            background: #eeecff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+        }
+
+        .course-info {
+            flex: 1;
+        }
+
+        .course-info h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .course-info p {
+            color: #888;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            border-radius: 20px;
+            background: #e8e8ef;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 75%;
+            height: 100%;
+            background: #6659cf;
+        }
+
+        .percentage {
+            font-size: 12px;
+            color: #6659cf;
+        }
+
+
+        /* =========================
+           PAGE HEADER
+        ========================= */
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #222;
+        }
+
+        .back {
+            width: 42px;
+            height: 42px;
+            border: none;
+            background: white;
+            border-radius: 13px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,.05);
+        }
+
+
+        /* =========================
+           DESCRIPTION
+        ========================= */
+
+        .page-description {
+            background: #6659cf;
+            color: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .page-description h2 {
+            font-size: 19px;
+            margin-bottom: 7px;
+        }
+
+        .page-description p {
+            font-size: 12px;
+            line-height: 1.6;
+            opacity: .9;
+        }
+
+
+        /* =========================
+           DATA CARDS
+        ========================= */
+
+        .data-card {
+            width: 100%;
+            border: none;
+            background: white;
+            border-radius: 20px;
+            padding: 17px;
+            margin-bottom: 13px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 5px 18px rgba(0,0,0,.05);
+            cursor: pointer;
+            text-align: left;
+            transition: .2s;
+        }
+
+        .data-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .data-icon {
+            width: 55px;
+            height: 55px;
+            min-width: 55px;
+            border-radius: 16px;
+            background: #eeecff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+        }
+
+        .data-info {
+            flex: 1;
+        }
+
+        .data-info h3 {
+            font-size: 15px;
+            margin-bottom: 5px;
+            color: #222;
+        }
+
+        .data-info p {
+            color: #888;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .arrow {
+            font-size: 22px;
+            color: #888;
+        }
+
+
+        /* =========================
+           DETAILS PAGE
+        ========================= */
+
+        .details {
+            background: white;
+            border-radius: 24px;
+            padding: 22px;
+            box-shadow: 0 5px 18px rgba(0,0,0,.05);
+        }
+
+        .details-icon {
+            width: 75px;
+            height: 75px;
+            background: #eeecff;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            margin-bottom: 18px;
+        }
+
+        .details h2 {
+            font-size: 24px;
+            margin-bottom: 7px;
+            color: #222;
+        }
+
+        .details .level {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .details-text {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .content-box {
+            background: #f5f3ff;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 15px;
+        }
+
+        .content-box h3 {
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: #33266b;
+        }
+
+        .content-box p {
+            font-size: 12px;
+            line-height: 1.7;
+            color: #666;
+        }
+
+        .detail-button {
+            width: 100%;
+            border: none;
+            background: #6659cf;
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+
+        /* =========================
+           BOTTOM NAVIGATION
+        ========================= */
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 430px;
+            height: 76px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            z-index: 1000;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.06);
+        }
+
+        .nav-button {
+            border: none;
+            background: transparent;
+            color: #999;
+            cursor: pointer;
+            text-align: center;
+            min-width: 60px;
+        }
+
+        .nav-button span {
+            display: block;
+            font-size: 21px;
+            margin-bottom: 4px;
+        }
+
+        .nav-button p {
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .nav-button.active {
+            color: #6659cf;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =========================
+         DASHBOARD
+    ========================= -->
+
+    <section id="dashboard" class="page">
+
+        <header class="dashboard-header">
+
+            <div>
+                <p class="welcome">Welcome to</p>
+                <h1>Tamkini</h1>
+            </div>
+
+            <div class="notification">
+                🔔
+                <span class="notification-dot"></span>
+            </div>
+
+        </header>
+
+
+        <section class="hero">
+
+            <div class="hero-text">
+
+                <h2>
+                    Learn.<br>
+                    Grow.<br>
+                    Empower.
+                </h2>
+
+                <p>
+                    Build your skills<br>
+                    and create your future.
+                </p>
+
+            </div>
+
+            <div class="hero-image">
+                <img src="profile.png" alt="Tamkini">
+            </div>
+
+        </section>
+
+
+        <!-- CATEGORIES -->
+
+        <section class="section">
+
+            <h2 class="section-title">
+                Explore Categories
+            </h2>
+
+            <div class="categories">
+
+                <button class="category"
+                    onclick="openPage('courses')">
+
+                    <div class="category-icon">🎓</div>
+                    <p>Courses</p>
+
+                </button>
+
+
+                <button class="category"
+                    onclick="openPage('skills')">
+
+                    <div class="category-icon">💡</div>
+                    <p>Skills</p>
+
+                </button>
+
+
+                <button class="category"
+                    onclick="openPage('finance')">
+
+                    <div class="category-icon">💰</div>
+                    <p>Finance</p>
+
+                </button>
+
+
+                <button class="category"
+                    onclick="openPage('community')">
+
+                    <div class="category-icon">👥</div>
+                    <p>Community</p>
+
+                </button>
+
+
+                <button class="category"
+                    onclick="openPage('reality')">
+
+                    <div class="category-icon">🌍</div>
+                    <p>Reality</p>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTINUE LEARNING -->
+
+        <section class="section">
+
+            <h2 class="section-title">
+                Continue Learning
+            </h2>
+
+            <button class="course-card"
+                onclick="openDetail(
+                    'Digital Marketing',
+                    '💻',
+                    'Beginner Level',
+                    'Learn how to promote products and services online, understand digital marketing basics, and build useful marketing skills.',
+                    'Digital Marketing helps you understand customers, social media, online advertising, and content creation.'
+                )">
+
+                <div class="course-icon">💻</div>
+
+                <div class="course-info">
+
+                    <h3>Digital Marketing</h3>
+
+                    <p>Beginner Level</p>
+
+                    <div class="progress-container">
+                        <div class="progress"></div>
+                    </div>
+
+                </div>
+
+                <strong class="percentage">75%</strong>
+
+            </button>
+
+        </section>
+
+    </section>
+
+
+
+    <!-- =========================
+         COURSES
+    ========================= -->
+
+    <section id="courses" class="page hidden">
+
+        <div class="page-header">
+
+            <button class="back"
+                onclick="openPage('dashboard')">
+                ←
+            </button>
+
+            <h1>Courses</h1>
+
+        </div>
+
+
+        <div class="page-description">
+
+            <h2>Learn New Skills</h2>
+
+            <p>
+                Explore courses and build the skills
+                you need for your future.
+            </p>
+
+        </div>
+
+
+        <button class="data-card"
+            onclick="openDetail(
+                'Digital Marketing',
+                '💻',
+                'Beginner Level',
+                'Learn the basics of digital marketing and how businesses reach customers online.',
+                'You will learn social media marketing, content creation, digital advertising, and basic marketing strategy.'
+            )">
+
+            <div class="data-icon">💻</div>
+
+            <div class="data-info">
+                <h3>Digital Marketing</h3>
+                <p>Beginner Level • 75% completed</p>
+            </div>
+
+            <div class="arrow">›</div>
+
+        </button>
+
+
+        <button class="data-card"
+            onclick="openDetail(
+                'Graphic Design',
+                '🎨',
+                'Beginner Level',
+                'Learn the fundamentals of graphic design and how to create attractive visual content.',
+                'You will learn colors, typography, layouts, visual communication, and basic design principles.'
+            )">
+
+            <div class="data-icon">🎨</div>
+
+            <div class="data-info">
+                <h3>Graphic Design</h3>
+                <p>Beginner Level</p>
+            </div>
+
+            <div class="arrow">›</div>
+
+        </button>
+
+
+        <button class="data-card"
+            onclick="openDetail(
+                'Web Development',
+                '🌐',
+                'Intermediate Level',
+                'Learn how websites work and how to build modern web pages.',
+                'You will explore HTML, CSS, JavaScript, page structure, styling, and basic interaction.'
+            )">
+
+            <div class="data-icon">🌐</div>
+
+            <div class="data-info">
+                <h3>Web Development</h3>
+                <p>Intermediate Level</p>
+            </div>
+
+            <div class="arrow">›</div>
+
+        </button>
+
+    </section>
+
+
+
+    <!-- =========================
+         SKILLS
+    ========================= -->
+
+    <section id="skills" class="page hidden">
+
+        <div class="page-header">
+
+            <button class="back"
+                onclick="openPage('dashboard')">
+                ←
+            </button>
+
+            <h1>Skills</h1>
+
+        </div>
+
+
+        <div class="page-description">
+
+            <h2>Develop Your Skills</h2>
+
+            <p>
+                Improve your personal and professional
+                skills and become more confident.
+            </p>
+
+        </div>
+
+
+        <button class="data-card"
+            onclick="openDetail(
+                'Communication',
+                '🗣️',
+                'Personal Skill',
+                'Communication helps you express your ideas clearly and understand other people better.',
+                'Practice active listening, speaking clearly, asking questions, giving feedback, and communicating with confidence.'
+            )">
+
+            <div class="data-icon">🗣️</div>
+
+            <div class="data-info">
+                <h3>Communication</h3>
+                <p>Learn how to communicate clearly and confidently.</p>
+            </div>
+
+            <div class="arrow">›</div>
+
+        </button>
+
+
+        <button class="data-card"
+            onclick="openDetail(
+                'Leadership',
+                '🎯',
+                'Professional Skill',
+                'Leadership is about helping a team work together and reach a common goal.',
+                'Learn teamwork, responsibility, decision making, motivation, and how to support your team.'
+            )">
+
+            <div class="data-icon">🎯</div>
+
+            <div class="data-info">
+                <h3>Leadership</h3>
+                <p>Develop leadership and teamwork skills.</p>
+            </div>
+
+            <div class="arrow">›</div>
+
+        </button>
+
+
+        <button class="data-card"
+            onclick="openDetail(
+                'Problem Solving',
+                '🧠',
+                'Professional Skill',
+                'Problem solving helps you understand challenges and find practical solutions.',
+                'Learn how to identify a problem, collect information, compare possible solutions, and choose an effective action.'
+            )">
+
+            <div class="data-icon">🧠</div>
+
+            <div class="data-info">
+                <h3>Problem Solving</h3>
+                <p>Learn how to analyze problems and find solutions.</p>
+            </div>
+
+            <div class="arrow">›</div>
+
+        </button>
+
+
+        <button class="data-card"
+            onclick="openDetail(
+                'Time Management',
+                '⏱️',
+                'Personal Skill',
+        'Time management helps you organize your tasks and use your time effectively.',
+        'Learn how to set priorities, create schedules, avoid distractions, and complete important tasks on time.'
+    )">
+
+    <div class="data-icon">⏱️</div>
+
+    <div class="data-info">
+        <h3>Time Management</h3>
+        <p>Organize your time and improve your productivity.</p>
+    </div>
+
+    <div class="arrow">›</div>
+
+</button>
+
+</section>
+
+
+
+<!-- =========================
+     FINANCE
+========================= -->
+
+<section id="finance" class="page hidden">
+
+    <div class="page-header">
+
+        <button class="back"
+            onclick="openPage('dashboard')">
+            ←
+        </button>
+
+        <h1>Finance</h1>
+
+    </div>
+
+    <div class="page-description">
+
+        <h2>Financial Education</h2>
+
+        <p>
+            Learn how to manage your money,
+            save, and plan for your future.
+        </p>
+
+    </div>
+
+
+    <button class="data-card"
+        onclick="openDetail(
+            'Money Management',
+            '💵',
+            'Finance',
+            'Learn the basics of managing your personal money.',
+            'Understand income, expenses, needs, wants, and how to make responsible financial decisions.'
+        )">
+
+        <div class="data-icon">💵</div>
+
+        <div class="data-info">
+            <h3>Money Management</h3>
+            <p>Learn the basics of managing your personal money.</p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </button>
+
+
+    <button class="data-card"
+        onclick="openDetail(
+            'Budgeting',
+            '📊',
+            'Finance',
+            'Learn how to create and manage a personal budget.',
+            'Create a simple budget, track your expenses, set priorities, and plan your spending.'
+        )">
+
+        <div class="data-icon">📊</div>
+
+        <div class="data-info">
+            <h3>Budgeting</h3>
+            <p>Learn how to create and manage a personal budget.</p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </button>
+
+
+    <button class="data-card"
+        onclick="openDetail(
+            'Saving',
+            '🏦',
+            'Finance',
+            'Understand saving and financial planning.',
+            'Learn why saving is important, how to set saving goals, and how to plan for future needs.'
+        )">
+
+        <div class="data-icon">🏦</div>
+
+        <div class="data-info">
+            <h3>Saving</h3>
+            <p>Understand saving and financial planning.</p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </button>
+
+</section>
+
+
+
+<!-- =========================
+     COMMUNITY
+========================= -->
+
+<section id="community" class="page hidden">
+
+    <div class="page-header">
+
+        <button class="back"
+            onclick="openPage('dashboard')">
+            ←
+        </button>
+
+        <h1>Community</h1>
+
+    </div>
+
+    <div class="page-description">
+
+        <h2>Join the Community</h2>
+
+        <p>
+            Connect with other learners,
+            share ideas, and learn together.
+        </p>
+
+    </div>
+
+
+    <button class="data-card"
+        onclick="openDetail(
+            'Community Groups',
+            '👥',
+            'Community',
+            'Join groups where learners can communicate, share experiences, and support each other.',
+            'Find people with similar interests, discuss ideas, share useful resources, and learn from other members.'
+        )">
+
+        <div class="data-icon">👥</div>
+
+        <div class="data-info">
+            <h3>Community Groups</h3>
+            <p>Connect with people who share your interests.</p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </button>
+
+
+    <button class="data-card"
+        onclick="openDetail(
+            'Discussion',
+            '💬',
+            'Community',
+            'Take part in discussions and exchange useful ideas with other members.',
+            'Ask questions, share your experience, discuss learning topics, and help other members.'
+        )">
+
+        <div class="data-icon">💬</div>
+
+        <div class="data-info">
+            <h3>Discussion</h3>
+            <p>Share ideas and learn from others.</p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </button>
+
+
+    <button class="data-card"
+        onclick="openDetail(
+            'Success Stories',
+            '⭐',
+            'Community',
+            'Read stories about people who developed their skills and worked toward their goals.',
+            'Explore experiences, learn from challenges, and get ideas that may help you plan your own future.'
+        )">
+
+        <div class="data-icon">⭐</div>
+
+        <div class="data-info">
+            <h3>Success Stories</h3>
+            <p>Learn from the experiences of others.</p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </button>
+
+</section>
+
+
+
+<!-- =========================
+     REALITY
+========================= -->
+
+<section id="reality" class="page hidden">
+
+    <div class="page-header">
+
+        <button class="back"
+            onclick="openPage('dashboard')">
+            ←
+        </button>
+
+        <h1>Reality</h1>
+
+    </div>
+
+    <div class="page-description">
+
+        <h2>Real Opportunities</h2>
+
+        <p>
+            Explore practical opportunities,
+            work ideas, and real-world experiences.
+        </p>
+
+    </div>
+
+
+    <button class="data-card"
+        onclick="openDetail(
+            'Work From Home',
+            '🏠',
+            'Opportunity',
+            'Explore ideas for working from home and developing useful skills for remote work.',
+            'Learn about communication, digital skills, time management, and the types of tasks that can be completed remotely.'
+        )">
+
+        <div class="data-icon">🏠</div>
+
+        <div class="data-info">
+            <h3>Work From Home</h3>
+            <p>Explore remote work opportunities.</p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </button>
+
+
+    <button class="data-card"
+        onclick="openDetail(
+            'Career Preparation',
+            '💼',
+            'Career',
+            'Prepare yourself for future work opportunities.',
+            'Build your CV, improve communication skills, learn professional behavior, and prepare for interviews.'
+        )">
+
+        <div class="data-icon">💼</div>
+
+        <div class="data-info">
+            <h3>Career Preparation</h3>
+            <p>Prepare for your future career.</p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </button>
+
+
+    <button class="data-card"
+        onclick="openDetail(
+            'Real Projects',
+            '🚀',
+            'Experience',
+            'Practice your skills through practical projects and real-world tasks.',
+            'Work on projects that help you apply what you learn and build experience for your future.'
+        )">
+
+        <div class="data-icon">🚀</div>
+
+        <div class="data-info">
+            <h3>Real Projects</h3>
+            <p>Practice skills through practical projects.</p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </button>
+
+</section>
+
+
+
+<!-- =========================
+     DETAILS PAGE
+========================= -->
+
+<section id="detailsPage" class="page hidden">
+
+    <div class="page-header">
+
+        <button class="back"
+            onclick="goBack()">
+            ←
+        </button>
+
+        <h1>Details</h1>
+
+    </div>
+
+
+    <div class="details">
+
+        <div id="detailIcon"
+            class="details-icon">
+            💡
+        </div>
+
+
+        <h2 id="detailTitle">
+            Title
+        </h2>
+
+
+        <p id="detailLevel"
+            class="level">
+            Level
+        </p>
+
+
+        <p id="detailText"
+            class="details-text">
+            Description
+        </p>
+
+
+        <div class="content-box">
+
+            <h3>What you will learn</h3>
+
+            <p id="detailContent">
+                Content
+            </p>
+
+        </div>
+
+
+        <div class="content-box">
+
+            <h3>Why is it useful?</h3>
+
+            <p>
+                This topic can help you develop
+                useful knowledge and skills for
+                your personal and professional future.
+            </p>
+
+        </div>
+
+
+        <button class="detail-button"
+            onclick="showMessage()">
+
+            Start Learning
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     BOTTOM NAVIGATION
+========================= -->
+
+<nav class="bottom-nav">
+
+    <button class="nav-button active"
+        onclick="openPage('dashboard')">
+
+        <span>🏠</span>
+        <p>Home</p>
+
+    </button>
+
+
+    <button class="nav-button"
+        onclick="openPage('courses')">
+
+        <span>🎓</span>
+        <p>Courses</p>
+
+    </button>
+
+
+    <button class="nav-button"
+        onclick="openPage('skills')">
+
+        <span>💡</span>
+        <p>Skills</p>
+
+    </button>
+
+
+    <button class="nav-button"
+        onclick="openPage('community')">
+
+        <span>👥</span>
+        <p>Community</p>
+
+    </button>
+
+</nav>
+
+</div>
+
+
+
+<script>
+
+let previousPage = "dashboard";
+
+
+/* =========================
+   OPEN PAGE
+========================= */
+
+function openPage(pageId) {
+
+    const pages = document.querySelectorAll(".page");
+
+    pages.forEach(function(page) {
+        page.classList.add("hidden");
+    });
+
+
+    const selectedPage =
+        document.getElementById(pageId);
+
+    if (selectedPage) {
+        selectedPage.classList.remove("hidden");
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+    updateNavigation(pageId);
+}
+
+
+
+/* =========================
+   OPEN DETAILS
+========================= */
+
+function openDetail(
+    title,
+    icon,
+    level,
+    description,
+    content
+) {
+
+    previousPage = getCurrentPage();
+
+
+    document.getElementById("detailTitle")
+        .textContent = title;
+
+
+    document.getElementById("detailIcon")
+        .textContent = icon;
+
+
+    document.getElementById("detailLevel")
+        .textContent = level;
+
+
+    document.getElementById("detailText")
+        .textContent = description;
+
+
+    document.getElementById("detailContent")
+        .textContent = content;
+
+
+    openPage("detailsPage");
+}
+
+
+
+/* =========================
+   GET CURRENT PAGE
+========================= */
+
+function getCurrentPage() {
+
+    const pages =
+        document.querySelectorAll(".page");
+
+
+    for (let page of pages) {
+
+        if (!page.classList.contains("hidden")) {
+
+            return page.id;
+
+        }
+
+    }
+
+
+    return "dashboard";
+}
+
+
+
+/* =========================
+   BACK
+========================= */
+
+function goBack() {
+
+    openPage(previousPage);
+
+}
+
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function updateNavigation(pageId) {
+
+    const buttons =
+        document.querySelectorAll(".nav-button");
+
+
+    buttons.forEach(function(button) {
+
+        button.classList.remove("active");
+
+    });
+
+
+    if (pageId === "dashboard") {
+
+        buttons[0].classList.add("active");
+
+    }
+
+    else if (pageId === "courses") {
+
+        buttons[1].classList.add("active");
+
+    }
+
+    else if (pageId === "skills") {
+
+        buttons[2].classList.add("active");
+
+    }
+
+    else if (pageId === "community") {
+
+        buttons[3].classList.add("active");
+
+    }
+
+}
+
+
+
+/* =========================
+   START LEARNING
+========================= */
+
+function showMessage() {
+
+    alert(
+        "Your learning section is ready. More lessons can be added here."
+    );
+
+}
+
+</script>
+
+</body>
+
+</html>
