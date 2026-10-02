@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Tamkini</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .signup-box {
+            width: 430px;
+            max-width: 90%;
+            padding: 35px;
+            background: rgba(255, 255, 255, 0.94);
+            border-radius: 28px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 38px;
+            font-weight: bold;
+            color: #3157a6;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            margin-top: 5px;
+            margin-bottom: 25px;
+            color: #222;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 14px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #667eea;
+        }
+
+        .create-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 18px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .create-btn:hover {
+            opacity: 0.9;
+        }
+
+        .login-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #3157a6;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="signup-box">
+
+        <div class="logo">Tamkini</div>
+
+        <h2>Create Account</h2>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Username"
+        >
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Email"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+        >
+
+        <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Password"
+        >
+
+        <button
+            type="button"
+            class="create-btn"
+            onclick="createAccount()"
+        >
+            Create Account
+        </button>
+
+        <div class="login-link">
+            Already have an account?
+            <a href="login.html">Sign In</a>
+        </div>
+
+    </div>
+
+
+    <script>
+        function createAccount() {
+
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (username === "" || email === "" || password === "" || confirmPassword === "") {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+           if (password !== confirmPassword) {
+    alert("Passwords do not match.");
+    return;
+}
+
+// Save account data
+localStorage.setItem("tamkiniUsername", username);
+localStorage.setItem("tamkiniEmail", email);
+
+// Go to dashboard
+window.location.href = "dashboard.html";
+}
+
+    </script>
+
+</body>
+</html>
