@@ -58,9 +58,10 @@
         }
 
         .welcome {
-            color: #777;
+            color: #030303;
             font-size: 14px;
             margin-bottom: 4px;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
         }
 
         .dashboard-header h1 {
@@ -506,6 +507,208 @@
             color: #6659cf;
         }
 
+
+        /* =========================
+   PROFILE
+========================= */
+
+.profile-card {
+    background: rgba(255, 255, 255, 0.95);
+
+    border-radius: 28px;
+
+    padding: 28px 20px;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.15);
+
+    margin-top: 20px;
+}
+
+
+.profile-image-wrapper {
+    width: 105px;
+    height: 105px;
+
+    margin: 0 auto 15px;
+
+    border-radius: 50%;
+
+    padding: 4px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #667eea,
+            #764ba2
+        );
+}
+
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    background: white;
+}
+
+
+.profile-card h2 {
+    margin: 8px 0 5px;
+
+    font-size: 24px;
+
+    color: #222;
+}
+
+
+.profile-email {
+    margin: 0 0 25px;
+
+    color: #777;
+
+    font-size: 14px;
+}
+
+
+.profile-info {
+    text-align: left;
+
+    margin-top: 15px;
+}
+
+
+.profile-info-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 15px;
+
+    margin-bottom: 10px;
+
+    background: #f7f7fb;
+
+    border-radius: 16px;
+}
+
+
+.profile-info-item > span {
+    font-size: 24px;
+}
+
+
+.profile-info-item strong {
+    display: block;
+
+    color: #333;
+
+    font-size: 14px;
+
+    margin-bottom: 4px;
+}
+
+
+.profile-info-item p {
+    margin: 0;
+
+    color: #777;
+
+    font-size: 14px;
+
+    word-break: break-word;
+}
+
+
+.profile-button,
+.logout-button {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    margin-top: 12px;
+}
+
+
+.profile-button {
+    background:
+        linear-gradient(
+            135deg,
+            #667eea,
+            #764ba2
+        );
+
+    color: white;
+}
+
+
+.logout-button {
+    background: #f1f1f1;
+
+    color: #d64545;
+}
+
+/* Profile Image */
+
+.profile-image-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 15px;
+}
+
+.profile-image-container img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.camera-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    width: 38px;
+    height: 38px;
+
+    border: 3px solid white;
+    border-radius: 50%;
+
+    background: #4f7cff;
+    color: white;
+
+    font-size: 18px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.camera-button:active {
+    transform: scale(0.92);
+}
     </style>
 
 </head>
@@ -525,8 +728,8 @@
         <header class="dashboard-header">
 
             <div>
-                <p class="welcome">Welcome to</p>
-                <h1>Tamkini</h1>
+                <p class="welcome">Welcome </p>
+                <h1 id="welcomeUser">Tamkini</h1>
             </div>
 
             <div class="notification">
@@ -555,7 +758,32 @@
             </div>
 
             <div class="hero-image">
-                <img src="profile.png" alt="Tamkini">
+                <div class="profile-image-container">
+
+    <img id="profileImage" src="profile.png" alt="Profile">
+
+    <button class="camera-button" onclick="openPhotoOptions()">
+        📷
+    </button>
+
+</div>
+
+<input
+    type="file"
+    id="galleryInput"
+    accept="image/*"
+    style="display:none"
+    onchange="selectProfileImage(event)"
+>
+
+<input
+    type="file"
+    id="cameraInput"
+    accept="image/*"
+    capture="user"
+    style="display:none"
+    onchange="selectProfileImage(event)"
+>
             </div>
 
         </section>
@@ -1157,7 +1385,122 @@
 
 </section>
 
+<!-- =========================
+     PROFILE
+========================= -->
 
+<section id="profile" class="page hidden">
+
+    <div class="page-header">
+
+        <button class="back"
+            onclick="openPage('dashboard')">
+            ←
+        </button>
+
+        <h1>Profile</h1>
+
+    </div>
+
+
+    <div class="profile-card">
+
+        <!-- Profile Image -->
+
+        <div class="profile-image-wrapper">
+
+            <img
+                src="profile.png"
+                alt="Profile"
+                class="profile-image"
+            >
+
+        </div>
+
+
+        <!-- Username -->
+
+        <h2 id="profileUsername">
+            User
+        </h2>
+
+
+        <!-- Email -->
+
+        <p id="profileEmail"
+            class="profile-email">
+            user@email.com
+        </p>
+
+
+        <!-- Account Info -->
+
+        <div class="profile-info">
+
+            <div class="profile-info-item">
+
+                <span>👤</span>
+
+                <div>
+                    <strong>Username</strong>
+                    <p id="profileUsernameInfo">User</p>
+                </div>
+
+            </div>
+
+
+            <div class="profile-info-item">
+
+                <span>📧</span>
+
+                <div>
+                    <strong>Email</strong>
+                    <p id="profileEmailInfo">
+                        user@email.com
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="profile-info-item">
+
+                <span>🎓</span>
+
+                <div>
+                    <strong>Learning Status</strong>
+                    <p>Active Learner</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Edit Profile -->
+
+        <button
+            class="profile-button"
+            onclick="editProfile()">
+
+            ✏️ Edit Profile
+
+        </button>
+
+
+        <!-- Logout -->
+
+        <button
+            class="logout-button"
+            onclick="logout()">
+
+            🚪 Logout
+
+        </button>
+
+    </div>
+
+</section>
 
 <!-- =========================
      DETAILS PAGE
@@ -1273,12 +1616,21 @@
 
 
     <button class="nav-button"
-        onclick="openPage('community')">
+    onclick="openPage('community')">
 
-        <span>👥</span>
-        <p>Community</p>
+    <span>👥</span>
+    <p>Community</p>
 
-    </button>
+</button>
+
+
+<button class="nav-button"
+    onclick="openPage('profile')">
+
+    <span>👤</span>
+    <p>Profile</p>
+
+</button>
 
 </nav>
 
@@ -1456,6 +1808,207 @@ function showMessage() {
         "Your learning section is ready. More lessons can be added here."
     );
 
+}
+/* =========================
+   PROFILE
+========================= */
+
+function loadProfile() {
+
+    const username =
+        localStorage.getItem("tamkiniUsername") || "User";
+
+    const email =
+        localStorage.getItem("tamkiniEmail") || "No email";
+
+
+    document.getElementById("profileUsername")
+        .textContent = username;
+
+
+    document.getElementById("profileUsernameInfo")
+        .textContent = username;
+
+
+    document.getElementById("profileEmail")
+        .textContent = email;
+
+
+    document.getElementById("profileEmailInfo")
+        .textContent = email;
+
+}
+
+
+function editProfile() {
+
+    // Get current data
+    const currentUsername =
+        localStorage.getItem("tamkiniUsername") || "";
+
+    const currentEmail =
+        localStorage.getItem("tamkiniEmail") || "";
+
+
+    // Ask for new username
+    const newUsername = prompt(
+        "Enter your new username:",
+        currentUsername
+    );
+
+    if (newUsername === null) {
+        return;
+    }
+
+
+    // Ask for new email
+    const newEmail = prompt(
+        "Enter your new email:",
+        currentEmail
+    );
+
+    if (newEmail === null) {
+        return;
+    }
+
+
+    // Remove extra spaces
+    const username = newUsername.trim();
+    const email = newEmail.trim();
+
+
+    // Check username
+    if (username.length < 3) {
+
+        alert(
+            "Username must be at least 3 characters."
+        );
+
+        return;
+    }
+
+
+    // Check email
+    if (!email.includes("@") || !email.includes(".")) {
+
+        alert(
+            "Please enter a valid email."
+        );
+
+        return;
+    }
+
+
+    // Save new data
+    localStorage.setItem(
+        "tamkiniUsername",
+        username
+    );
+
+    localStorage.setItem(
+        "tamkiniEmail",
+        email
+    );
+
+
+    // Update profile
+    loadProfile();
+
+
+    // Update dashboard username
+    const welcomeUser =
+        document.getElementById("welcomeUser");
+
+    if (welcomeUser) {
+        welcomeUser.textContent = username;
+    }
+
+
+    alert(
+        "Profile updated successfully!"
+    );
+}
+
+function logout() {
+
+    const confirmLogout =
+        confirm(
+            "Are you sure you want to logout?"
+        );
+
+
+    if (!confirmLogout) {
+        return;
+    }
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* Load profile when dashboard opens */
+
+loadProfile();
+</script>
+
+
+
+
+<script>
+
+function openPhotoOptions() {
+
+    const choice = confirm(
+        "Choose an option:\n\n" +
+        "OK = Take Photo 📷\n" +
+        "Cancel = Choose from Gallery 🖼️"
+    );
+
+    if (choice) {
+        document.getElementById("cameraInput").click();
+    } else {
+        document.getElementById("galleryInput").click();
+    }
+}
+
+
+function selectProfileImage(event) {
+
+    const file = event.target.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+        const imageData = e.target.result;
+
+        document.getElementById("profileImage").src = imageData;
+
+        localStorage.setItem(
+            "tamkiniProfileImage",
+            imageData
+        );
+    };
+
+    reader.readAsDataURL(file);
+}
+
+
+/* Load saved profile image */
+
+const savedProfileImage =
+    localStorage.getItem("tamkiniProfileImage");
+
+if (savedProfileImage) {
+
+    document.getElementById("profileImage").src =
+        savedProfileImage;
 }
 
 </script>
