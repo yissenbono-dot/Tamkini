@@ -18,7 +18,8 @@
     <main class="login-card">
 
         <div class="profile-logo">
-            <img src="WhatsApp Image 2026-09-28 at 10.26.24 PM.jpeg" alt="Tamkini Profile">
+            <img src="WhatsApp Image 2026-09-28 at 10.26.24 PM.jpeg"
+                 alt="Tamkini Profile">
         </div>
 
         <h1>Tamkini</h1>
@@ -31,7 +32,7 @@
                 type="text"
                 id="username"
                 placeholder="Username"
-                autocomplete="off"
+                autocomplete="username"
                 required
             >
 
@@ -39,15 +40,17 @@
                 type="password"
                 id="password"
                 placeholder="Password"
+                autocomplete="current-password"
                 required
             >
-            <br>
-            <br>
-            I don't have an account? <a href="Creat account.html">Create account</a>
 
+            <br>
+            <br>
+
+            I don't have an account?
+            <a href="Create account.html">Create account</a>
 
             <p id="error-message"></p>
-
 
             <button type="submit">
                 Sign In
@@ -58,28 +61,81 @@
     </main>
 
     <script>
-        function login(event) {
+
+        async function login(event) {
 
             event.preventDefault();
 
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-            const errorMessage = document.getElementById("error-message");
+            const username =
+                document.getElementById("username").value.trim();
 
-            if (username === "admin" && password === "1234") {
+            const password =
+                document.getElementById("password").value;
 
-                errorMessage.textContent = "";
+            const errorMessage =
+                document.getElementById("error-message");
 
-                window.location.href = "dashboard.html";
+            errorMessage.textContent = "";
 
-            } else {
+            try {
+
+                const response = await fetch(
+                    "http://127.0.0.1:5000/api/login",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            username: username,
+                            password: password
+                        })
+                    }
+                );
+
+                const data = await response.json();
+
+                if (data.success) {
+
+                    localStorage.setItem(
+                        "tamkiniUsername",
+                        data.user.name
+                    );
+
+                    localStorage.setItem(
+                        "tamkiniEmail",
+                        data.user.email
+                    );
+
+                    window.location.href = "dashboard.html";
+
+                } else {
+
+                    errorMessage.textContent =
+                        data.message || "Invalid username or password.";
+
+                }
+
+            } catch (error) {
 
                 errorMessage.textContent =
-                    "Invalid username or password.";
+                    "Cannot connect to Tamkini server.";
 
+                console.error(error);
             }
         }
-    </script>
 
+    </script>
+    <button onclick="logout()">Log Out</button>
+<script>
+function logout() {
+    localStorage.removeItem("tamkiniUsername");
+    localStorage.removeItem("tamkiniEmail");
+
+    window.location.href = "login.html";
+}
+</script>
 </body>
 </html>

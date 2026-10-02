@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Create Account - Tamkini</title>
 
     <style>
@@ -70,10 +72,6 @@
             cursor: pointer;
         }
 
-        .create-btn:hover {
-            opacity: 0.9;
-        }
-
         .login-link {
             margin-top: 20px;
             font-size: 14px;
@@ -99,24 +97,28 @@
             type="text"
             id="username"
             placeholder="Username"
+            required
         >
 
         <input
             type="email"
             id="email"
             placeholder="Email"
+            required
         >
 
         <input
             type="password"
             id="password"
             placeholder="Password"
+            required
         >
 
         <input
             type="password"
             id="confirmPassword"
             placeholder="Confirm Password"
+            required
         >
 
         <button
@@ -134,34 +136,82 @@
 
     </div>
 
-
     <script>
-        function createAccount() {
 
-            const username = document.getElementById("username").value;
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirmPassword").value;
+        async function createAccount() {
 
-            if (username === "" || email === "" || password === "" || confirmPassword === "") {
+            const username =
+                document.getElementById("username").value.trim();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value;
+
+            const confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+
+            if (!username || !email || !password || !confirmPassword) {
+
                 alert("Please fill in all fields.");
                 return;
             }
 
-           if (password !== confirmPassword) {
-    alert("Passwords do not match.");
-    return;
-}
 
-// Save account data
-localStorage.setItem("tamkiniUsername", username);
-localStorage.setItem("tamkiniEmail", email);
+            if (password !== confirmPassword) {
 
-// Go to dashboard
-window.location.href = "dashboard.html";
-}
+                alert("Passwords do not match.");
+                return;
+            }
+
+
+            try {
+
+                const response = await fetch(
+                    "http://127.0.0.1:5000/api/register",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            name: username,
+                            email: email,
+                            password: password
+                        })
+                    }
+                );
+
+
+                const data = await response.json();
+
+
+                if (data.success) {
+
+                    alert("Account created successfully!");
+
+                    window.location.href = "login.html";
+
+                } else {
+
+                    alert(data.message);
+
+                }
+
+            } catch (error) {
+
+                alert("Cannot connect to Tamkini server.");
+
+                console.error(error);
+            }
+        }
 
     </script>
 
 </body>
+
 </html>
